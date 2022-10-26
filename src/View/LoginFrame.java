@@ -1,10 +1,14 @@
-package View;
+package view;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Client;
+
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -22,33 +26,47 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.DropMode;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class MainFrame extends JFrame {
+import model.User;
+
+
+public class LoginFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JPasswordField userPasswordField;
+	private JTextField userPasswordField; //formally JPasswordField
 	private JTextField userIdTextField;
+	
+	Client client = new Client();
+//	private int login_id;
+//	private String login_password;
+	
+	User user = new User();
+	
+	
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					LoginFrame frame = new LoginFrame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public LoginFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 789, 465);
 		contentPane = new JPanel();
@@ -104,13 +122,56 @@ public class MainFrame extends JFrame {
 		loginGrpPanel.add(userIdTextField);
 		userIdTextField.setColumns(10);
 		
-		userPasswordField = new JPasswordField();
+		userPasswordField = new JTextField(); //
 		userPasswordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		loginGrpPanel.add(userPasswordField);
 		userPasswordField.setToolTipText("Enter Password");
 		userPasswordField.setColumns(20);
 		
 		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				user.setuser_id(Integer.parseInt(userIdTextField.getText()));
+				User userObj = new User();
+				user.setuser_id(userIdTextField.getText());
+				user.setPassword(userPasswordField.getText());
+				System.out.println("User Login Information received from user.");
+				
+				client.setAction("Login");
+				client.sendAction("Login");
+				client.sendAction(user.getuser_id());
+				client.sendAction(user.getPassword());
+				
+				userObj = client.receiveResponse();
+				
+				user.setuser_id(userObj.getuser_id());
+				user.setPassword(userObj.getPassword());
+				user.setf_name(userObj.getf_name());
+				user.setl_name(userObj.getl_name());
+				user.setRole(userObj.getRole());
+				
+				userLabel.setText("User: "+ user.getf_name() + " " +user.getl_name());
+				deptLabel.setText("Role: "+ user.getRole());
+				
+				if(user.getRole().equalsIgnoreCase("employee")) {
+					InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame();
+					inventoryEmpFrame.setVisible(true);
+					disposeFrame();
+					
+				}else if(user.getRole().equalsIgnoreCase("supervisor")) {
+					new InventorySupervisorFrame();
+					
+				}else if(user.getRole().equalsIgnoreCase("accounts")) {
+					new AccountsPayableFrame();
+					
+				}else if(user.getRole().equalsIgnoreCase("purchasing")) {
+					System.out.println("Purchasing");
+					
+				}
+				
+				
+			}
+		});
 		loginButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		loginButton.setForeground(new Color(0, 0, 0));
 		loginGrpPanel.add(loginButton);
@@ -121,5 +182,14 @@ public class MainFrame extends JFrame {
 		companyNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		companyNameLabel.setBounds(180, 88, 379, 51);
 		contentPane.add(companyNameLabel);
+		
+			
+		
 	}
+	
+	public void disposeFrame() {
+		this.setVisible(false);
+	}
+	
+	
 }

@@ -1,41 +1,53 @@
-package Model;
+package model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 
 	//Attributes
-	private String userID;
+	private String user_id;
 	private String password;
-	private String fName;
-	private String lName;
+	private String f_name;
+	private String l_name;
 	private String role;
 	
+	private static final long serialVersionUID = 546675745643453457L;
+	
 	/**
-	 * @param userID
+	 * @param user_id
 	 * @param password
-	 * @param fName
-	 * @param lName
+	 * @param f_name
+	 * @param l_name
 	 * @param role
 	 */
 	
 	//Constructors
-	public User(String userID, String password, String fName, String lName, String role) {
+	public User() {
+		this.user_id = "";
+		this.password = "";
+		this.f_name = "";
+		this.l_name = "";
+		this.role = "";
+	}
+	
+	public User(String user_id, String password, String f_name, String l_name, String role) {
 		super();
-		this.userID = userID;
+		this.user_id = user_id;
 		this.password = password;
-		this.fName = fName;
-		this.lName = lName;
+		this.f_name = f_name;
+		this.l_name = l_name;
 		this.role = role;
 	}
 
 	
 
 	//Getters and setters
-	public String getUserID() {
-		return userID;
+	public String getuser_id() {
+		return user_id;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setuser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getPassword() {
@@ -46,20 +58,20 @@ public class User {
 		this.password = password;
 	}
 
-	public String getfName() {
-		return fName;
+	public String getf_name() {
+		return f_name;
 	}
 
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setf_name(String f_name) {
+		this.f_name = f_name;
 	}
 
-	public String getlName() {
-		return lName;
+	public String getl_name() {
+		return l_name;
 	}
 
-	public void setlName(String lName) {
-		this.lName = lName;
+	public void setl_name(String l_name) {
+		this.l_name = l_name;
 	}
 
 	public String getRole() {
@@ -74,7 +86,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userID=" + userID + ", password=" + password + ", fName=" + fName + ", lName=" + lName + ", role="
+		return "User [user_id=" + user_id + ", password=" + password + ", f_name=" + f_name + ", l_name=" + l_name + ", role="
 				+ role + "]";
 	}
 
