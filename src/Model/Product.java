@@ -1,74 +1,97 @@
 package model;
 
-public class Product {
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class Product implements Serializable{
 
 	//Attribute
-	private String itemId;
-	private String itemName;
-	private String itemMax;
-	private String itemCurrent;
-	private String itemReorderStatus;
+	private int item_id;
+	private String item_name;
+	private int item_max;
+	private int item_current;
+	private String item_reorder_status;
+	
+	private transient Connection dbConn;
+	
+	private transient String query;
+	private transient PreparedStatement stmt;
+	private transient ResultSet resultSet;
+	private static final long serialVersionUID = 643453457546675745L;
 	
 	
 	//Constructors 
 	/**
-	 * @param itemId
-	 * @param itemName
-	 * @param itemMax
-	 * @param itemCurrent
-	 * @param itemReorderStatus
+	 * @param item_id
+	 * @param item_name
+	 * @param item_max
+	 * @param item_current
+	 * @param item_reorder_status
 	 */
-	public Product(String itemId, String itemName, String itemMax, String itemCurrent, String itemReorderStatus) {
+	
+	public Product() {
+		
+		this.item_id = 0;
+		this.item_name = "";
+		this.item_max = 0;
+		this.item_current = 0;
+		this.item_reorder_status = "";
+	}
+	
+	public Product(int item_id, String item_name, int item_max, int item_current, String item_reorder_status) {
 		super();
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.itemMax = itemMax;
-		this.itemCurrent = itemCurrent;
-		this.itemReorderStatus = itemReorderStatus;
+		this.item_id = item_id;
+		this.item_name = item_name;
+		this.item_max = item_max;
+		this.item_current = item_current;
+		this.item_reorder_status = item_reorder_status;
 	}
 	
 	//Getters and setters
-	public String getItemId() {
-		return itemId;
+	public int getitem_id() {
+		return item_id;
 	}
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
+	public void setitem_id(int item_id) {
+		this.item_id = item_id;
 	}
-	public String getItemName() {
-		return itemName;
+	public String getitem_name() {
+		return item_name;
 	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setitem_name(String item_name) {
+		this.item_name = item_name;
 	}
-	public String getItemMax() {
-		return itemMax;
+	public int getitem_max() {
+		return item_max;
 	}
-	public void setItemMax(String itemMax) {
-		this.itemMax = itemMax;
+	public void setitem_max(int item_max) {
+		this.item_max = item_max;
 	}
-	public String getItemCurrent() {
-		return itemCurrent;
+	public int getitem_current() {
+		return item_current;
 	}
-	public void setItemCurrent(String itemCurrent) {
-		this.itemCurrent = itemCurrent;
+	public void setitem_current(int item_current) {
+		this.item_current = item_current;
 	}
-	public String getItemReorderStatus() {
-		return itemReorderStatus;
+	public String getitem_reorder_status() {
+		return item_reorder_status;
 	}
-	public void setItemReorderStatus(String itemReorderStatus) {
-		this.itemReorderStatus = itemReorderStatus;
+	public void setitem_reorder_status(String item_reorder_status) {
+		this.item_reorder_status = item_reorder_status;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "Product [itemId=" + itemId + ", itemName=" + itemName + ", itemMax=" + itemMax + ", itemCurrent="
-				+ itemCurrent + ", itemReorderStatus=" + itemReorderStatus + "]";
+		return "Product [item_id=" + item_id + ", item_name=" + item_name + ", item_max=" + item_max + ", item_current="
+				+ item_current + ", item_reorder_status=" + item_reorder_status + "]";
 	}
 	
 	
-	
-	
+
 	
 	
 }

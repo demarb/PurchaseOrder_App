@@ -142,7 +142,7 @@ public class LoginFrame extends JFrame {
 				client.sendAction(user.getuser_id());
 				client.sendAction(user.getPassword());
 				
-				userObj = client.receiveResponse();
+				userObj = client.receiveUser();
 				
 				user.setuser_id(userObj.getuser_id());
 				user.setPassword(userObj.getPassword());
@@ -154,9 +154,23 @@ public class LoginFrame extends JFrame {
 				deptLabel.setText("Role: "+ user.getRole());
 				
 				if(user.getRole().equalsIgnoreCase("employee")) {
-					InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame();
+					InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame(client, userObj);
 					inventoryEmpFrame.setVisible(true);
 					disposeFrame();
+					
+//					inventoryEmpFrame.getUserLabel().setText("User: "+ user.getf_name() + " " +user.getl_name());
+//					inventoryEmpFrame.getDeptLabel().setText("Role: "+ user.getRole());
+//					
+//					client.setAction("Employee- Check Inventory");
+//					client.sendAction("Employee- Check Inventory");
+//					client.receiveArray();
+//					
+//					inventoryEmpFrame.refreshButton.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {
+//							
+//						}
+//					});
+					
 					
 				}else if(user.getRole().equalsIgnoreCase("supervisor")) {
 					new InventorySupervisorFrame();

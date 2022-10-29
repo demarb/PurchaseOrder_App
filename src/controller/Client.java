@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import model.Product;
 import model.User;
 import view.InventoryEmployeeFrame;
 import view.LoginFrame;
@@ -104,7 +106,7 @@ public class Client {
 //		return userObj;
 //	}
 	
-	public User receiveResponse() {
+	public User receiveUser() {
 		User userObj = new User();
 		
 		try {
@@ -133,4 +135,30 @@ public class Client {
 		
 		return userObj;
 	}	
+	
+	public ArrayList receiveArray() {
+		Product productObj = new Product();
+		ArrayList<Product> productListObj = new ArrayList<Product>();
+		
+		try {
+			System.out.println("test action: "+this.getAction());
+			if (this.getAction().equalsIgnoreCase("Employee- Check Inventory")){
+				
+				
+				productListObj = (ArrayList<Product>) objIs.readObject();
+					
+					
+					
+				
+			}else {
+				System.out.println("Product not detected");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return productListObj;
+	}	
+	
+	
 }

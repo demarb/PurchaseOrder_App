@@ -25,7 +25,15 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+
+import controller.Client;
+import model.Product;
+import model.User;
+
 import javax.swing.JTabbedPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InventoryEmployeeFrame extends JFrame {
 
@@ -39,6 +47,13 @@ public class InventoryEmployeeFrame extends JFrame {
 	private JTextField supplierTelTextField;
 	private JTextField supplierEmailTextField;
 	private JTextField unitPricetextField;
+	private JScrollPane checkInventoryScrollPane;
+	private JLabel userLabel = new JLabel("User:");
+	private JLabel deptLabel = new JLabel("Role: ");
+	private Client client;
+	private User userObj;
+	private Product productObj;
+	private ArrayList<Product> productListObj = new ArrayList<Product>();
 
 	/**
 	 * Launch the application.
@@ -59,7 +74,16 @@ public class InventoryEmployeeFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InventoryEmployeeFrame() {
+	public InventoryEmployeeFrame(Client client, User userObj) {
+		this.client= client;
+		this.userObj = userObj;
+		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
+		this.getDeptLabel().setText("Role: "+ userObj.getRole());
+		
+		
+		
+		
+		System.out.println("Inventory Employee Frame Created");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 600);
 		contentPane = new JPanel();
@@ -85,13 +109,13 @@ public class InventoryEmployeeFrame extends JFrame {
 		contentPane.add(bottomPanel);
 		bottomPanel.setLayout(null);
 		
-		JLabel userLabel = new JLabel("User:");
-		userLabel.setForeground(new Color(0, 0, 0));
-		userLabel.setBounds(39, 0, 376, 34);
-		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		bottomPanel.add(userLabel);
 		
-		JLabel deptLabel = new JLabel("Role: ");
+		getUserLabel().setForeground(new Color(0, 0, 0));
+		getUserLabel().setBounds(39, 0, 376, 34);
+		getUserLabel().setFont(new Font("Tahoma", Font.PLAIN, 18));
+		bottomPanel.add(getUserLabel());
+		
+		
 		deptLabel.setForeground(new Color(0, 0, 0));
 		deptLabel.setBounds(449, 0, 386, 34);
 		deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -108,75 +132,77 @@ public class InventoryEmployeeFrame extends JFrame {
 		tabbedPane.addTab("Check Inventory", null, checkInventoryPanel, null);
 		checkInventoryPanel.setLayout(new BoxLayout(checkInventoryPanel, BoxLayout.X_AXIS));
 		
-		JScrollPane checkInventoryScrollPane = new JScrollPane();
+		checkInventoryScrollPane = new JScrollPane();
 		checkInventoryPanel.add(checkInventoryScrollPane);
+		checkInventory();
 		
-		productTable = new JTable();
-		checkInventoryScrollPane.setViewportView(productTable);
-		productTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Item ID", "Item Name", "Item Max", "Item Current", "Item Reorder Status"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, Integer.class, Integer.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+//		productTable = new JTable();
+//		productTable.setEnabled(false);
+//		checkInventoryScrollPane.setViewportView(productTable);
+//		productTable.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//			},
+//			new String[] {
+//				"Item ID", "Item Name", "Item Max", "Item Current", "Item Reorder Status"
+//			}
+//		) {
+//			Class[] columnTypes = new Class[] {
+//				Integer.class, String.class, Integer.class, Integer.class, String.class
+//			};
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//		});
 		productTable.getColumnModel().getColumn(1).setPreferredWidth(205);
 		productTable.getColumnModel().getColumn(4).setPreferredWidth(116);
 		productTable.setBackground(new Color(255, 255, 255));
@@ -292,8 +318,71 @@ public class InventoryEmployeeFrame extends JFrame {
 		formPanel_1.add(submitReqButton);
 		
 		JButton refreshButton = new JButton("Refresh Inventory");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkInventory();
+			}
+		});
 		refreshButton.setBackground(new Color(0, 128, 128));
 		refreshButton.setBounds(711, 486, 180, 35);
 		contentPane.add(refreshButton);
+	}
+
+	public JLabel getUserLabel() {
+		return userLabel;
+	}
+
+	public void setUserLabel(JLabel userLabel) {
+		this.userLabel = userLabel;
+	}
+
+	public JLabel getDeptLabel() {
+		return deptLabel;
+	}
+
+	public void setDeptLabel(JLabel deptLabel) {
+		this.deptLabel = deptLabel;
+	}
+	
+	public void checkInventory() {
+		client.setAction("Employee- Check Inventory");
+		client.sendAction("Employee- Check Inventory");
+		
+		productListObj = client.receiveArray();
+		
+		productTable = new JTable();
+		productTable.setEnabled(false);
+		checkInventoryScrollPane.setViewportView(productTable);
+		productTable.setModel(new DefaultTableModel(
+				new Object[][] {
+
+				},
+				new String[] {
+					"Item ID", "Item Name", "Item Max", "Item Current", "Item Reorder Status"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, String.class, Integer.class, Integer.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		
+		DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+		Object rowData[] = new Object[5];
+		
+		for (int i=0; i < productListObj.size(); i++) {
+			System.out.println(productListObj.toString()); 
+			rowData[0] = productListObj.get(i).getitem_id();
+			rowData[1] = productListObj.get(i).getitem_name();
+			rowData[2] = productListObj.get(i).getitem_max();
+			rowData[3] = productListObj.get(i).getitem_current();
+			rowData[4] = productListObj.get(i).getitem_reorder_status();
+//			rowData.toString();
+			model.addRow(rowData);
+		}
+		
+		
 	}
 }
