@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -245,6 +247,24 @@ public class InventoryEmployeeFrame extends JFrame {
 		itemQuantitytextField.setColumns(10);
 		
 		JButton updateInventoryButton = new JButton("Update Inventory");
+		updateInventoryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				productObj = new Product();
+//				productObj.setitem_id(Integer.parseInt(itemIDTextField.getText()));
+//				productObj.setitem_current (Integer.parseInt(itemQuantitytextField.getText()));
+				client.setAction("Employee- Update Inventory");
+				client.sendAction("Employee- Update Inventory");
+				client.sendAction(itemIDTextField.getText());
+				client.sendAction(itemQuantitytextField.getText());
+				
+				if(client.receiveConfirmation()) {
+					JOptionPane.showMessageDialog(updateInventoryButton, "Inventory Successfully Updated.");
+				}else {
+					JOptionPane.showMessageDialog(updateInventoryButton, "Inventory Update Attempt FAIL.");
+				}
+				
+			}
+		});
 		updateInventoryButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		updateInventoryButton.setBackground(new Color(0, 128, 128));
 		formPanel.add(updateInventoryButton);

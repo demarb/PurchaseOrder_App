@@ -160,5 +160,24 @@ public class Client {
 		return productListObj;
 	}	
 	
+	public boolean receiveConfirmation() {
+		boolean confirmation = false;
+		
+		try {
+			System.out.println("test action: "+this.getAction());
+			if (this.getAction().equalsIgnoreCase("Employee- Update Inventory")){
+				confirmation = (Boolean) objIs.readObject();
+					
+
+			}else {
+				System.out.println("Product not detected");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return confirmation;
+	}
+	
 	
 }
