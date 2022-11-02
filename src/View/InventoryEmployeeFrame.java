@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import controller.Client;
 import model.Product;
+import model.Requisition;
 import model.User;
 
 import javax.swing.JTabbedPane;
@@ -333,6 +334,46 @@ public class InventoryEmployeeFrame extends JFrame {
 		formPanel_1.add(supplierEmailTextField);
 		
 		JButton submitReqButton = new JButton("Submit Requisition for Approval");
+		submitReqButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Requisition requisitionObj = new Requisition();
+				requisitionObj.setItem_id(Integer.parseInt(itemIDTextField_1.getText()));
+				requisitionObj.setQuantity(Double.parseDouble(quantityTextField_1.getText()));
+				requisitionObj.setUnit_price(Double.parseDouble(unitPricetextField.getText()));
+				requisitionObj.setSupplier_name(supplierNameTextField.getText());
+				requisitionObj.setSupplier_tel(supplierTelTextField.getText());
+				requisitionObj.setSupplier_email(supplierEmailTextField.getText());
+				
+				
+				requisitionObj.setTotal_price(requisitionObj.getQuantity()*requisitionObj.getUnit_price());
+				requisitionObj.setAssociated_emp(userObj.getf_name() + " " +userObj.getl_name());
+				requisitionObj.setReq_status("Processing");
+				
+				for(int i=0; i < productListObj.size(); i++) {
+					if(productListObj.get(i).getitem_id()==requisitionObj.getItem_id()) {
+						requisitionObj.setItem_name(productListObj.get(i).getitem_name());
+						
+					}
+					
+				}
+				if(requisitionObj.getItem_name().length()==0){
+					JOptionPane.showMessageDialog(submitReqButton, "ERROR: Invalid Item ID. Item does not exist or Inventory needs to be refreshed.  ");
+				}else{
+					System.out.println("Requisition obj being sent: ");
+					System.out.println(requisitionObj.toString());
+					client.setAction("Employee- Create Requisition");
+					client.sendAction("Employee- Create Requisition");
+					client.sendRequisition(requisitionObj);
+					if(client.receiveConfirmation()) {
+						JOptionPane.showMessageDialog(submitReqButton, "SUCCESS: Requisition Created");
+					}else {
+						JOptionPane.showMessageDialog(submitReqButton, "ERROR: Server: Database failed to add new requisition");
+					}
+					
+				};
+				
+			}
+		});
 		submitReqButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		submitReqButton.setBackground(new Color(0, 128, 128));
 		formPanel_1.add(submitReqButton);

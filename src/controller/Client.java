@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import model.Product;
+import model.Requisition;
 import model.User;
 import view.InventoryEmployeeFrame;
 import view.LoginFrame;
@@ -62,6 +63,15 @@ public class Client {
 		}
 	}
 	
+	public void sendRequisition(Requisition requisitionObj) { 
+//		this.setAction(action);
+		try {
+			objOs.writeObject(requisitionObj);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void setAction(String action) {
 		this.action=  action;
@@ -70,6 +80,8 @@ public class Client {
 	public String getAction() {
 		return action;
 	}
+	
+	
 
 //	public void getLoginScreen(){
 //		LoginFrame loginFrame = new LoginFrame();
@@ -106,6 +118,22 @@ public class Client {
 //		return userObj;
 //	}
 	
+	public ObjectOutputStream getObjOs() {
+		return objOs;
+	}
+
+	public void setObjOs(ObjectOutputStream objOs) {
+		this.objOs = objOs;
+	}
+
+	public ObjectInputStream getObjIs() {
+		return objIs;
+	}
+
+	public void setObjIs(ObjectInputStream objIs) {
+		this.objIs = objIs;
+	}
+
 	public User receiveUser() {
 		User userObj = new User();
 		
@@ -169,8 +197,11 @@ public class Client {
 				confirmation = (Boolean) objIs.readObject();
 					
 
-			}else {
-				System.out.println("Product not detected");
+			}else if (this.getAction().equalsIgnoreCase("Employee- Create Requisition")){
+				confirmation = (Boolean) objIs.readObject();
+				
+					
+
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
