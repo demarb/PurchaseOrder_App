@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.Client;
 import model.Product;
+import model.PurchaseOrder;
 import model.Requisition;
 import model.User;
 
@@ -52,8 +53,9 @@ public class AccountsPayableFrame extends JFrame {
 	private JTextField supplierTelTextField;
 	private JTextField supplierEmailTextField;
 	private JTextField unitPricetextField;
-	private JTextField txtPOId;
+	private JTextField txtReqId;
 	private JScrollPane reqTableScrollPane;
+	private JScrollPane POtableScrollPane;
 	private final ButtonGroup approveButtonGroup = new ButtonGroup();
 	private JTable requisitionTable;
 	private JTable pOTable;
@@ -65,6 +67,8 @@ public class AccountsPayableFrame extends JFrame {
 	private User userObj;
 	private Requisition requisitionObj;
 	private ArrayList<Requisition> requisitionListObj = new ArrayList<Requisition>();
+	private PurchaseOrder purchaseOrderObj;
+	private ArrayList<PurchaseOrder> PO_ListObj = new ArrayList<PurchaseOrder>();
 
 	/**
 	 * Launch the application.
@@ -148,7 +152,7 @@ public class AccountsPayableFrame extends JFrame {
 		reqTableScrollPane = new JScrollPane();
 		reqTableScrollPane.setBounds(0, 0, 929, 394);
 		viewPendingReqPanel.add(reqTableScrollPane);
-		checkReq_PO();
+		
 		
 //		requisitionTable = new JTable();
 //		requisitionTable.setEnabled(false);
@@ -183,82 +187,45 @@ public class AccountsPayableFrame extends JFrame {
 		tabbedPane.addTab("View All Purchase Orders", null, viewAllPurchaseOrderPanel, null);
 		viewAllPurchaseOrderPanel.setLayout(new BoxLayout(viewAllPurchaseOrderPanel, BoxLayout.X_AXIS));
 		
-		JScrollPane POtableScrollPane = new JScrollPane();
+		POtableScrollPane = new JScrollPane();
 		viewAllPurchaseOrderPanel.add(POtableScrollPane);
+		checkReq_PO();
 		
-		pOTable = new JTable();
-		POtableScrollPane.setViewportView(pOTable);
-		pOTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Purchase ID", "Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Accounts Employee", "PO Status"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, Integer.class, String.class, Integer.class, Float.class, Double.class, String.class, String.class, String.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		pOTable.getColumnModel().getColumn(1).setPreferredWidth(77);
-		pOTable.getColumnModel().getColumn(2).setPreferredWidth(72);
-		pOTable.getColumnModel().getColumn(3).setPreferredWidth(77);
-		pOTable.getColumnModel().getColumn(4).setPreferredWidth(110);
-		pOTable.getColumnModel().getColumn(8).setPreferredWidth(116);
-		pOTable.setBackground(new Color(255, 255, 255));
-		pOTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		pOTable = new JTable();
+//		pOTable.setEnabled(false);
+//		POtableScrollPane.setViewportView(pOTable);
+//		pOTable.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
+//			},
+//			new String[] {
+//				"PO ID", "Approving Accountant", "PO Date", "Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Employee Requesting"
+//			}
+//		) {
+//			Class[] columnTypes = new Class[] {
+//				Integer.class, String.class, String.class, Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class
+//			};
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false, false, false, false, false, false, false, false, false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		pOTable.getColumnModel().getColumn(3).setPreferredWidth(77);
+//		pOTable.getColumnModel().getColumn(4).setPreferredWidth(72);
+//		pOTable.getColumnModel().getColumn(5).setPreferredWidth(77);
+//		pOTable.getColumnModel().getColumn(6).setPreferredWidth(110);
+//		pOTable.getColumnModel().getColumn(10).setPreferredWidth(116);
+//		pOTable.setBackground(new Color(255, 255, 255));
+//		pOTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JPanel updatePOPanel = new JPanel();
 		updatePOPanel.setBackground(Color.WHITE);
@@ -372,12 +339,12 @@ public class AccountsPayableFrame extends JFrame {
 		generatePdfBtn.setBackground(new Color(0, 128, 128));
 		pdfFormPanel.add(generatePdfBtn);
 		
-		txtPOId = new JTextField();
-		txtPOId.setText("Purchase Order ID");
-		txtPOId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtPOId.setBounds(32, 481, 180, 35);
-		contentPane.add(txtPOId);
-		txtPOId.setColumns(10);
+		txtReqId = new JTextField();
+		txtReqId.setText("Requisition ID");
+		txtReqId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtReqId.setBounds(32, 481, 180, 35);
+		contentPane.add(txtReqId);
+		txtReqId.setColumns(10);
 		
 		JRadioButton rdlbtnApprove = new JRadioButton("Approve");
 		approveButtonGroup.add(rdlbtnApprove);
@@ -394,6 +361,51 @@ public class AccountsPayableFrame extends JFrame {
 		contentPane.add(rdbtnDeny);
 		
 		JButton createOrDenyButton = new JButton("Create PO/Deny");
+		createOrDenyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String changeReqStatus = "";
+				if (rdlbtnApprove.isSelected()) { 
+					changeReqStatus = "Approve";
+                }
+                else if (rdbtnDeny.isSelected()) {
+  
+                	changeReqStatus = "Deny";
+                }
+				
+				if ((txtReqId.getText().length()<1) || (changeReqStatus.length()<1)) {
+					JOptionPane.showMessageDialog(createOrDenyButton, "ERROR: Requsition ID field blank/ No option selected.");
+				}else {
+					boolean reqExists = false;
+					for(int i=0; i < requisitionListObj.size(); i++) {
+						
+						if(requisitionListObj.get(i).getReq_id()==Integer.parseInt(txtReqId.getText())) {
+							reqExists= true;
+							break;
+						}	
+					}
+					
+					if(reqExists==false) {
+						JOptionPane.showMessageDialog(createOrDenyButton, "ERROR: ERROR: Invalid Requisition ID. Requisition does not exist or Requisitions needs to be refreshed.");
+					}else if(reqExists==true) {
+						client.setAction("Accounts- Create PO/Deny Requisition");
+						client.sendAction("Accounts- Create PO/Deny Requisition");
+						client.sendAction(txtReqId.getText());
+						client.sendAction(changeReqStatus);
+						client.sendAction(userObj.getf_name() + " " +userObj.getl_name());
+						
+						if(client.receiveConfirmation()) {
+							JOptionPane.showMessageDialog(createOrDenyButton, "Requisition Status Change Successful. Purchase Order Created if Necessary.");
+						}else {
+							JOptionPane.showMessageDialog(createOrDenyButton, "Requistion Status Change FAIL.");
+						}
+						
+					}
+				}
+
+				
+				
+			}
+		});
 		createOrDenyButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		createOrDenyButton.setBackground(new Color(0, 128, 128));
 		createOrDenyButton.setBounds(434, 481, 180, 35);
@@ -441,7 +453,7 @@ public class AccountsPayableFrame extends JFrame {
 
 				},
 				new String[] {
-					"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Req Status"
+					"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Employee Requesting", "Req Status"
 				}
 			) {
 				Class[] columnTypes = new Class[] {
@@ -470,6 +482,49 @@ public class AccountsPayableFrame extends JFrame {
 			rowData[10] = requisitionListObj.get(i).getReq_status();
 //			rowData.toString();
 			model.addRow(rowData);
+		}
+		
+		PO_ListObj = client.receivePOArr();
+		
+		pOTable = new JTable();
+		pOTable.setEnabled(false);
+		POtableScrollPane.setViewportView(pOTable);
+		pOTable.setModel(new DefaultTableModel(
+				new Object[][] {
+
+				},
+				new String[] {
+					"PO ID", "Approving Accountant", "PO Date", "Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Employee Requesting"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+						Integer.class, String.class, String.class, Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		
+		DefaultTableModel model2 = (DefaultTableModel) pOTable.getModel();
+		Object rowData2[] = new Object[13];
+		
+		for (int i=0; i < PO_ListObj.size(); i++) {
+			System.out.println(PO_ListObj.toString());
+			rowData2[0] = PO_ListObj.get(i).getPo_id();
+			rowData2[1] = PO_ListObj.get(i).getApproving_emp();
+			rowData2[2] = PO_ListObj.get(i).getDateTime();
+			rowData2[3] = PO_ListObj.get(i).getReq_id();
+			rowData2[4] = PO_ListObj.get(i).getItem_id();
+			rowData2[5] = PO_ListObj.get(i).getItem_name();
+			rowData2[6] = PO_ListObj.get(i).getQuantity();
+			rowData2[7] = PO_ListObj.get(i).getUnit_price();
+			rowData2[8] = PO_ListObj.get(i).getTotal_price();
+			rowData2[9] = PO_ListObj.get(i).getSupplier_name();
+			rowData2[10] = PO_ListObj.get(i).getSupplier_tel();
+			rowData2[11] = PO_ListObj.get(i).getSupplier_email();
+			rowData2[12] = PO_ListObj.get(i).getAssociated_emp();
+//			rowData2.toString();
+			model2.addRow(rowData2);
 		}
 		
 		

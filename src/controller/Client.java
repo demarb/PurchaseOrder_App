@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import model.Product;
+import model.PurchaseOrder;
 import model.Requisition;
 import model.User;
 import view.InventoryEmployeeFrame;
@@ -204,6 +205,24 @@ public class Client {
 		return requisitionListObj;
 	}
 	
+	public ArrayList receivePOArr() {
+		PurchaseOrder purchaseOrderObj = new PurchaseOrder();
+		ArrayList<PurchaseOrder> PO_ListObj = new ArrayList<PurchaseOrder>();
+		
+		try {
+			System.out.println("test action: "+this.getAction());
+			if (this.getAction().equalsIgnoreCase("Accounts- Check Requisition and PO")){
+				
+				PO_ListObj = (ArrayList<PurchaseOrder>) objIs.readObject();
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return PO_ListObj;
+	}
+	
 	public boolean receiveConfirmation() {
 		boolean confirmation = false;
 		
@@ -218,7 +237,13 @@ public class Client {
 				
 					
 
+			}else if (this.getAction().equalsIgnoreCase("Accounts- Create PO/Deny Requisition")){
+				confirmation = (Boolean) objIs.readObject();
+				
+					
+
 			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
