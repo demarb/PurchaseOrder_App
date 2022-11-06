@@ -97,7 +97,7 @@ public class AccountsPayableFrame extends JFrame {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 600);
+		setBounds(100, 100, 1263, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,7 +107,7 @@ public class AccountsPayableFrame extends JFrame {
 		
 		JPanel topPanel = new JPanel();
 		topPanel.setBackground(new Color(0, 128, 128));
-		topPanel.setBounds(0, 0, 934, 35);
+		topPanel.setBounds(0, 0, 1247, 35);
 		contentPane.add(topPanel);
 		
 		JLabel SystemLabel = new JLabel("Purchase Order System");
@@ -117,7 +117,7 @@ public class AccountsPayableFrame extends JFrame {
 		
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setBackground(new Color(0, 128, 128));
-		bottomPanel.setBounds(0, 527, 934, 34);
+		bottomPanel.setBounds(0, 527, 1247, 34);
 		contentPane.add(bottomPanel);
 		bottomPanel.setLayout(null);
 		
@@ -134,14 +134,14 @@ public class AccountsPayableFrame extends JFrame {
 		
 //		JLabel deptLabel = new JLabel("Role: ");
 		deptLabel.setForeground(new Color(0, 0, 0));
-		deptLabel.setBounds(449, 0, 386, 34);
+		deptLabel.setBounds(819, 0, 386, 34);
 		deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottomPanel.add(deptLabel);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tabbedPane.setBackground(new Color(255, 255, 255));
-		tabbedPane.setBounds(0, 46, 934, 430);
+		tabbedPane.setBounds(0, 46, 1247, 430);
 		contentPane.add(tabbedPane);
 		
 		JPanel viewPendingReqPanel = new JPanel();
@@ -150,7 +150,7 @@ public class AccountsPayableFrame extends JFrame {
 		tabbedPane.addTab("Pending Requisition", null, viewPendingReqPanel, null);
 		
 		reqTableScrollPane = new JScrollPane();
-		reqTableScrollPane.setBounds(0, 0, 929, 394);
+		reqTableScrollPane.setBounds(0, 0, 1242, 394);
 		viewPendingReqPanel.add(reqTableScrollPane);
 		
 		
@@ -419,7 +419,7 @@ public class AccountsPayableFrame extends JFrame {
 			}
 		});
 		refreshButton.setBackground(new Color(0, 128, 128));
-		refreshButton.setBounds(711, 486, 180, 35);
+		refreshButton.setBounds(1011, 481, 180, 35);
 		contentPane.add(refreshButton);
 	}
 	
