@@ -382,6 +382,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkInventory();
+				JOptionPane.showMessageDialog(refreshButton, "SUCCESS: Products Updated");
 			}
 		});
 		refreshButton.setBackground(new Color(0, 128, 128));
@@ -409,7 +410,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		client.setAction("Employee- Check Inventory");
 		client.sendAction("Employee- Check Inventory");
 		
-		productListObj = client.receiveArray();
+		productListObj = client.receiveProdArr();
 		
 		productTable = new JTable();
 		productTable.setEnabled(false);
@@ -443,6 +444,8 @@ public class InventoryEmployeeFrame extends JFrame {
 //			rowData.toString();
 			model.addRow(rowData);
 		}
+		
+		
 		
 		
 	}

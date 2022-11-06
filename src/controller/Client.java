@@ -164,7 +164,7 @@ public class Client {
 		return userObj;
 	}	
 	
-	public ArrayList receiveArray() {
+	public ArrayList receiveProdArr() {
 		Product productObj = new Product();
 		ArrayList<Product> productListObj = new ArrayList<Product>();
 		
@@ -178,15 +178,31 @@ public class Client {
 					
 					
 				
-			}else {
-				System.out.println("Product not detected");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		return productListObj;
-	}	
+	}
+	
+	public ArrayList receiveReqArr() {
+		Requisition requisitionObj = new Requisition();
+		ArrayList<Requisition> requisitionListObj = new ArrayList<Requisition>();
+		
+		try {
+			System.out.println("test action: "+this.getAction());
+			if (this.getAction().equalsIgnoreCase("Accounts- Check Requisition and PO")){
+				
+				requisitionListObj = (ArrayList<Requisition>) objIs.readObject();
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return requisitionListObj;
+	}
 	
 	public boolean receiveConfirmation() {
 		boolean confirmation = false;

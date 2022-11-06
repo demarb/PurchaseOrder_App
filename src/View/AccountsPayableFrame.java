@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -28,7 +30,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import controller.Client;
+import model.Product;
+import model.Requisition;
+import model.User;
+
 import javax.swing.JTabbedPane;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 
 
@@ -42,32 +53,45 @@ public class AccountsPayableFrame extends JFrame {
 	private JTextField supplierEmailTextField;
 	private JTextField unitPricetextField;
 	private JTextField txtPOId;
+	private JScrollPane reqTableScrollPane;
 	private final ButtonGroup approveButtonGroup = new ButtonGroup();
-	private JTable requsitionTable;
+	private JTable requisitionTable;
 	private JTable pOTable;
 	private JTextField POTextField;
 	private JTextField textField;
+	private JLabel userLabel = new JLabel("User:");
+	private JLabel deptLabel = new JLabel("Role: ");
+	private Client client;
+	private User userObj;
+	private Requisition requisitionObj;
+	private ArrayList<Requisition> requisitionListObj = new ArrayList<Requisition>();
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AccountsPayableFrame frame = new AccountsPayableFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AccountsPayableFrame frame = new AccountsPayableFrame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AccountsPayableFrame() {
+	public AccountsPayableFrame(Client client, User userObj) {
+		this.client= client;
+		this.userObj = userObj;
+		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
+		this.getDeptLabel().setText("Role: "+ userObj.getRole());
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 600);
 		contentPane = new JPanel();
@@ -93,13 +117,18 @@ public class AccountsPayableFrame extends JFrame {
 		contentPane.add(bottomPanel);
 		bottomPanel.setLayout(null);
 		
-		JLabel userLabel = new JLabel("User:");
-		userLabel.setForeground(new Color(0, 0, 0));
-		userLabel.setBounds(39, 0, 376, 34);
-		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		bottomPanel.add(userLabel);
+		getUserLabel().setForeground(new Color(0, 0, 0));
+		getUserLabel().setBounds(39, 0, 376, 34);
+		getUserLabel().setFont(new Font("Tahoma", Font.PLAIN, 18));
+		bottomPanel.add(getUserLabel());
 		
-		JLabel deptLabel = new JLabel("Role: ");
+//		JLabel userLabel = new JLabel("User:");
+//		userLabel.setForeground(new Color(0, 0, 0));
+//		userLabel.setBounds(39, 0, 376, 34);
+//		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		bottomPanel.add(userLabel);
+		
+//		JLabel deptLabel = new JLabel("Role: ");
 		deptLabel.setForeground(new Color(0, 0, 0));
 		deptLabel.setBounds(449, 0, 386, 34);
 		deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -116,76 +145,38 @@ public class AccountsPayableFrame extends JFrame {
 		viewPendingReqPanel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Pending Requisition", null, viewPendingReqPanel, null);
 		
-		JScrollPane reqTableScrollPane = new JScrollPane();
+		reqTableScrollPane = new JScrollPane();
 		reqTableScrollPane.setBounds(0, 0, 929, 394);
 		viewPendingReqPanel.add(reqTableScrollPane);
+		checkReq_PO();
 		
-		requsitionTable = new JTable();
-		reqTableScrollPane.setViewportView(requsitionTable);
-		requsitionTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Req Status"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, String.class, Integer.class, Float.class, Integer.class, String.class, String.class, String.class, String.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+//		requisitionTable = new JTable();
+//		requisitionTable.setEnabled(false);
+//		reqTableScrollPane.setViewportView(requisitionTable);
+//		requisitionTable.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//				{null, null, null, null, null, null, null, null, null, null, null},
+//			},
+//			new String[] {
+//				"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Req Status"
+//			}
+//		) {
+//			Class[] columnTypes = new Class[] {
+//				Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class, String.class
+//			};
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//		});
 		
 		JPanel viewAllPurchaseOrderPanel = new JPanel();
 		viewAllPurchaseOrderPanel.setBackground(new Color(255, 255, 255));
@@ -408,9 +399,79 @@ public class AccountsPayableFrame extends JFrame {
 		createOrDenyButton.setBounds(434, 481, 180, 35);
 		contentPane.add(createOrDenyButton);
 		
-		JButton refreshButton = new JButton("Refresh Inventory");
+		JButton refreshButton = new JButton("Refresh Requisition/PO");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				checkReq_PO();
+				JOptionPane.showMessageDialog(refreshButton, "SUCCESS: Requisitions & Purchase Orders Updated");
+			}
+		});
 		refreshButton.setBackground(new Color(0, 128, 128));
 		refreshButton.setBounds(711, 486, 180, 35);
 		contentPane.add(refreshButton);
+	}
+	
+	public JLabel getUserLabel() {
+		return userLabel;
+	}
+
+	public void setUserLabel(JLabel userLabel) {
+		this.userLabel = userLabel;
+	}
+
+	public JLabel getDeptLabel() {
+		return deptLabel;
+	}
+
+	public void setDeptLabel(JLabel deptLabel) {
+		this.deptLabel = deptLabel;
+	}
+	
+	public void checkReq_PO() {
+		client.setAction("Accounts- Check Requisition and PO");
+		client.sendAction("Accounts- Check Requisition and PO");
+		
+		requisitionListObj = client.receiveReqArr();
+		
+		requisitionTable = new JTable();
+		requisitionTable.setEnabled(false);
+		reqTableScrollPane.setViewportView(requisitionTable);
+		requisitionTable.setModel(new DefaultTableModel(
+				new Object[][] {
+
+				},
+				new String[] {
+					"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Req Status"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+						Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+		
+		DefaultTableModel model = (DefaultTableModel) requisitionTable.getModel();
+		Object rowData[] = new Object[11];
+		
+		for (int i=0; i < requisitionListObj.size(); i++) {
+			System.out.println(requisitionListObj.toString()); 
+			rowData[0] = requisitionListObj.get(i).getReq_id();
+			rowData[1] = requisitionListObj.get(i).getItem_id();
+			rowData[2] = requisitionListObj.get(i).getItem_name();
+			rowData[3] = requisitionListObj.get(i).getQuantity();
+			rowData[4] = requisitionListObj.get(i).getUnit_price();
+			rowData[5] = requisitionListObj.get(i).getTotal_price();
+			rowData[6] = requisitionListObj.get(i).getSupplier_name();
+			rowData[7] = requisitionListObj.get(i).getSupplier_tel();
+			rowData[8] = requisitionListObj.get(i).getSupplier_email();
+			rowData[9] = requisitionListObj.get(i).getAssociated_emp();
+			rowData[10] = requisitionListObj.get(i).getReq_status();
+//			rowData.toString();
+			model.addRow(rowData);
+		}
+		
+		
 	}
 }

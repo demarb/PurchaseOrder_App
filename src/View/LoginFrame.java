@@ -172,16 +172,18 @@ public class LoginFrame extends JFrame {
 //					});
 					
 					
-				}else if(user.getRole().equalsIgnoreCase("supervisor")) {
-					new InventorySupervisorFrame();
-					
+//				}else if(user.getRole().equalsIgnoreCase("supervisor")) {
+//					new InventorySupervisorFrame();
+//					
 				}else if(user.getRole().equalsIgnoreCase("accounts")) {
-					new AccountsPayableFrame();
+					AccountsPayableFrame accountsPayFrame = new AccountsPayableFrame(client, userObj);
+					accountsPayFrame.setVisible(true);
+					disposeFrame();
 					
-				}else if(user.getRole().equalsIgnoreCase("purchasing")) {
-					System.out.println("Purchasing");
-					
-				}
+				}//else if(user.getRole().equalsIgnoreCase("purchasing")) {
+//					System.out.println("Purchasing");
+//					
+//				}
 				
 				
 			}
