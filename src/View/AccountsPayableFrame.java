@@ -228,7 +228,7 @@ public class AccountsPayableFrame extends JFrame {
 //		pOTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JPanel updatePOPanel = new JPanel();
-		updatePOPanel.setBackground(Color.WHITE);
+		updatePOPanel.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Update Purchase Order", null, updatePOPanel, null);
 		
 		JPanel updatePOFormPanel_1 = new JPanel();
@@ -296,6 +296,7 @@ public class AccountsPayableFrame extends JFrame {
 		updatePOFormPanel_1.add(updateReqButton);
 		
 		JPanel deletePOPanel = new JPanel();
+		deletePOPanel.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Delete Purchase Order", null, deletePOPanel, null);
 		
 		JPanel deleteFormPanel = new JPanel();
@@ -318,6 +319,7 @@ public class AccountsPayableFrame extends JFrame {
 		deleteFormPanel.add(deletePOButton);
 		
 		JPanel generatePdfPanel = new JPanel();
+		generatePdfPanel.setBackground(new Color(255, 255, 255));
 		tabbedPane.addTab("Generate PDF", null, generatePdfPanel, null);
 		
 		JPanel pdfFormPanel = new JPanel();
@@ -487,6 +489,7 @@ public class AccountsPayableFrame extends JFrame {
 		PO_ListObj = client.receivePOArr();
 		
 		pOTable = new JTable();
+		pOTable.setBackground(new Color(255, 255, 255));
 		pOTable.setEnabled(false);
 		POtableScrollPane.setViewportView(pOTable);
 		pOTable.setModel(new DefaultTableModel(
