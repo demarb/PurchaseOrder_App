@@ -47,19 +47,12 @@ import java.awt.event.ActionEvent;
 public class AccountsPayableFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField itemIDTextField_1;
-	private JTextField quantityTextField_1;
-	private JTextField supplierNameTextField;
-	private JTextField supplierTelTextField;
-	private JTextField supplierEmailTextField;
-	private JTextField unitPricetextField;
 	private JTextField txtReqId;
 	private JScrollPane reqTableScrollPane;
 	private JScrollPane POtableScrollPane;
 	private final ButtonGroup approveButtonGroup = new ButtonGroup();
 	private JTable requisitionTable;
 	private JTable pOTable;
-	private JTextField POTextField;
 	private JTextField textField;
 	private JLabel userLabel = new JLabel("User:");
 	private JLabel deptLabel = new JLabel("Role: ");
@@ -190,133 +183,6 @@ public class AccountsPayableFrame extends JFrame {
 		POtableScrollPane = new JScrollPane();
 		viewAllPurchaseOrderPanel.add(POtableScrollPane);
 		checkReq_PO();
-		
-//		pOTable = new JTable();
-//		pOTable.setEnabled(false);
-//		POtableScrollPane.setViewportView(pOTable);
-//		pOTable.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null, null, null},
-//			},
-//			new String[] {
-//				"PO ID", "Approving Accountant", "PO Date", "Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Employee Requesting"
-//			}
-//		) {
-//			Class[] columnTypes = new Class[] {
-//				Integer.class, String.class, String.class, Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class
-//			};
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false, false, false, false, false, false, false, false, false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		pOTable.getColumnModel().getColumn(3).setPreferredWidth(77);
-//		pOTable.getColumnModel().getColumn(4).setPreferredWidth(72);
-//		pOTable.getColumnModel().getColumn(5).setPreferredWidth(77);
-//		pOTable.getColumnModel().getColumn(6).setPreferredWidth(110);
-//		pOTable.getColumnModel().getColumn(10).setPreferredWidth(116);
-//		pOTable.setBackground(new Color(255, 255, 255));
-//		pOTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JPanel updatePOPanel = new JPanel();
-		updatePOPanel.setBackground(new Color(255, 255, 255));
-		tabbedPane.addTab("Update Purchase Order", null, updatePOPanel, null);
-		
-		JPanel updatePOFormPanel_1 = new JPanel();
-		updatePOFormPanel_1.setBackground(Color.WHITE);
-		updatePOPanel.add(updatePOFormPanel_1);
-		updatePOFormPanel_1.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JLabel POIDLabel1 = new JLabel("Purchase Order ID");
-		POIDLabel1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(POIDLabel1);
-		
-		itemIDTextField_1 = new JTextField();
-		itemIDTextField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		itemIDTextField_1.setColumns(10);
-		updatePOFormPanel_1.add(itemIDTextField_1);
-		
-		JLabel lblQuantity = new JLabel("Requested Quantity");
-		lblQuantity.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(lblQuantity);
-		
-		quantityTextField_1 = new JTextField();
-		quantityTextField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		quantityTextField_1.setColumns(25);
-		updatePOFormPanel_1.add(quantityTextField_1);
-		
-		JLabel lblUnitPrice = new JLabel("Unit Price");
-		lblUnitPrice.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(lblUnitPrice);
-		
-		unitPricetextField = new JTextField();
-		unitPricetextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		unitPricetextField.setColumns(10);
-		updatePOFormPanel_1.add(unitPricetextField);
-		
-		JLabel lblNewLabel = new JLabel("Supplier Name");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(lblNewLabel);
-		
-		supplierNameTextField = new JTextField();
-		supplierNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(supplierNameTextField);
-		supplierNameTextField.setColumns(10);
-		
-		JLabel lblSupplierTel = new JLabel("Supplier Telephone");
-		lblSupplierTel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(lblSupplierTel);
-		
-		supplierTelTextField = new JTextField();
-		supplierTelTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		supplierTelTextField.setColumns(10);
-		updatePOFormPanel_1.add(supplierTelTextField);
-		
-		JLabel lblSupplierEmail = new JLabel("Supplier Email");
-		lblSupplierEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updatePOFormPanel_1.add(lblSupplierEmail);
-		
-		supplierEmailTextField = new JTextField();
-		supplierEmailTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		supplierEmailTextField.setColumns(10);
-		updatePOFormPanel_1.add(supplierEmailTextField);
-		
-		JButton updateReqButton = new JButton("Update PO");
-		updateReqButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		updateReqButton.setBackground(new Color(0, 128, 128));
-		updatePOFormPanel_1.add(updateReqButton);
-		
-		JPanel deletePOPanel = new JPanel();
-		deletePOPanel.setBackground(new Color(255, 255, 255));
-		tabbedPane.addTab("Delete Purchase Order", null, deletePOPanel, null);
-		
-		JPanel deleteFormPanel = new JPanel();
-		deleteFormPanel.setBackground(Color.WHITE);
-		deletePOPanel.add(deleteFormPanel);
-		deleteFormPanel.setLayout(new GridLayout(0, 1, 0, 10));
-		
-		JLabel lblPurchaseOrderId = new JLabel("Purchase Order ID");
-		lblPurchaseOrderId.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		deleteFormPanel.add(lblPurchaseOrderId);
-		
-		POTextField = new JTextField();
-		POTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		POTextField.setColumns(25);
-		deleteFormPanel.add(POTextField);
-		
-		JButton deletePOButton = new JButton("Delete Purchase Order");
-		deletePOButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		deletePOButton.setBackground(new Color(0, 128, 128));
-		deleteFormPanel.add(deletePOButton);
 		
 		JPanel generatePdfPanel = new JPanel();
 		generatePdfPanel.setBackground(new Color(255, 255, 255));
