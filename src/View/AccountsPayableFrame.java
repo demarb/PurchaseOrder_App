@@ -32,6 +32,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Client;
+import controller.GeneratePdf;
 import model.Product;
 import model.PurchaseOrder;
 import model.Requisition;
@@ -39,6 +40,9 @@ import model.User;
 
 import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -53,7 +57,7 @@ public class AccountsPayableFrame extends JFrame {
 	private final ButtonGroup approveButtonGroup = new ButtonGroup();
 	private JTable requisitionTable;
 	private JTable pOTable;
-	private JTextField textField;
+	private JTextField genPOtextField;
 	private JLabel userLabel = new JLabel("User:");
 	private JLabel deptLabel = new JLabel("Role: ");
 	private Client client;
@@ -197,12 +201,57 @@ public class AccountsPayableFrame extends JFrame {
 		lblPurchaseOrderId_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pdfFormPanel.add(lblPurchaseOrderId_1);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setColumns(25);
-		pdfFormPanel.add(textField);
+		genPOtextField = new JTextField();
+		genPOtextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		genPOtextField.setColumns(25);
+		pdfFormPanel.add(genPOtextField);
 		
 		JButton generatePdfBtn = new JButton("Generate PDF for Purchase Order");
+		generatePdfBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean poExists = false;
+				PurchaseOrder purchaseOrderObj = new PurchaseOrder();
+				for(int i=0; i < PO_ListObj.size(); i++) {
+					if(PO_ListObj.get(i).getPo_id()==Integer.parseInt(genPOtextField.getText())) {
+						poExists= true;
+						purchaseOrderObj= PO_ListObj.get(i);
+						break;
+					}	
+				}
+				if(poExists==true) {
+					GeneratePdf.po_id = Integer.toString(purchaseOrderObj.getPo_id());
+					GeneratePdf.approving_emp = "Approving Accountant: "+ purchaseOrderObj.getApproving_emp();
+					GeneratePdf.dateTime = "Approval Date: "+ purchaseOrderObj.getDateTime();
+					GeneratePdf.req_id = "Requisition ID: "+ Integer.toString(purchaseOrderObj.getReq_id());
+					GeneratePdf.item_id = "Item ID: "+ Integer.toString(purchaseOrderObj.getItem_id());
+					GeneratePdf.item_name = "Item Name: "+ purchaseOrderObj.getItem_name();
+					GeneratePdf.quantity = "Quantity: "+ Double.toString(purchaseOrderObj.getQuantity());
+					GeneratePdf.unit_price = "Unit Price: "+ Double.toString(purchaseOrderObj.getUnit_price());
+					GeneratePdf.total_price = "Total Price: "+ Double.toString(purchaseOrderObj.getTotal_price());
+					GeneratePdf.supplier_name = "Supplier Name: "+ purchaseOrderObj.getSupplier_name();
+					GeneratePdf.supplier_tel = "Supplier Telephone: "+ purchaseOrderObj.getSupplier_tel();
+					GeneratePdf.supplier_email = "Supplier Email: "+ purchaseOrderObj.getSupplier_email();
+					GeneratePdf.associated_emp = "Requesting Employee: "+ purchaseOrderObj.getAssociated_emp();
+					
+					//Document Name
+					LocalDateTime localdatetime = LocalDateTime.now();
+					
+				    DateTimeFormatter dateFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+				    String formattedDate = localdatetime.format(dateFormatObj);
+					
+					GeneratePdf.document_name = "./generated-pdfs/PO-" +purchaseOrderObj.getPo_id()+ "_generatedAt-"+ formattedDate+ ".pdf";
+					try {
+						GeneratePdf.createPDF();
+						JOptionPane.showMessageDialog(generatePdfBtn, "SUCCESS: PDF Generated for Purchase Order: "+ purchaseOrderObj.getPo_id());
+					}catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else {
+					JOptionPane.showMessageDialog(generatePdfBtn, "ERROR: Purchase Order Not Found. Does not exist or POs need to be refreshed.");
+				}
+			}
+		});
 		generatePdfBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		generatePdfBtn.setBackground(new Color(0, 128, 128));
 		pdfFormPanel.add(generatePdfBtn);
