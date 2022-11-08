@@ -13,14 +13,6 @@ public class User implements Serializable{
 	
 	private static final long serialVersionUID = 546675745643453457L;
 	
-	/**
-	 * @param user_id
-	 * @param password
-	 * @param f_name
-	 * @param l_name
-	 * @param role
-	 */
-	
 	//Constructors
 	public User() {
 		this.user_id = "";
@@ -82,18 +74,10 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", password=" + password + ", f_name=" + f_name + ", l_name=" + l_name + ", role="
 				+ role + "]";
 	}
 
-	
-	
-	
-	
-	
-	
 }

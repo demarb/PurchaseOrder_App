@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,31 +7,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextPane;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.DropMode;
-import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Client;
 import controller.GeneratePdf;
-import model.Product;
 import model.PurchaseOrder;
 import model.Requisition;
 import model.User;
@@ -67,31 +54,11 @@ public class AccountsPayableFrame extends JFrame {
 	private PurchaseOrder purchaseOrderObj;
 	private ArrayList<PurchaseOrder> PO_ListObj = new ArrayList<PurchaseOrder>();
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AccountsPayableFrame frame = new AccountsPayableFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public AccountsPayableFrame(Client client, User userObj) {
 		this.client= client;
 		this.userObj = userObj;
 		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
 		this.getDeptLabel().setText("Role: "+ userObj.getRole());
-		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1263, 600);
@@ -122,14 +89,7 @@ public class AccountsPayableFrame extends JFrame {
 		getUserLabel().setBounds(39, 0, 376, 34);
 		getUserLabel().setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottomPanel.add(getUserLabel());
-		
-//		JLabel userLabel = new JLabel("User:");
-//		userLabel.setForeground(new Color(0, 0, 0));
-//		userLabel.setBounds(39, 0, 376, 34);
-//		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		bottomPanel.add(userLabel);
-		
-//		JLabel deptLabel = new JLabel("Role: ");
+
 		deptLabel.setForeground(new Color(0, 0, 0));
 		deptLabel.setBounds(819, 0, 386, 34);
 		deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -149,35 +109,6 @@ public class AccountsPayableFrame extends JFrame {
 		reqTableScrollPane = new JScrollPane();
 		reqTableScrollPane.setBounds(0, 0, 1242, 394);
 		viewPendingReqPanel.add(reqTableScrollPane);
-		
-		
-//		requisitionTable = new JTable();
-//		requisitionTable.setEnabled(false);
-//		reqTableScrollPane.setViewportView(requisitionTable);
-//		requisitionTable.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//				{null, null, null, null, null, null, null, null, null, null, null},
-//			},
-//			new String[] {
-//				"Requisition ID", "Item ID", "Item Name", "Requested Quantity", "Unit Price", "Total Price", "Supplier Name", "Supplier Tel", "Supplier Email", "Supervisor", "Req Status"
-//			}
-//		) {
-//			Class[] columnTypes = new Class[] {
-//				Integer.class, Integer.class, String.class, Double.class, Double.class, Double.class, String.class, String.class, String.class, String.class, String.class
-//			};
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
 		
 		JPanel viewAllPurchaseOrderPanel = new JPanel();
 		viewAllPurchaseOrderPanel.setBackground(new Color(255, 255, 255));
@@ -319,8 +250,6 @@ public class AccountsPayableFrame extends JFrame {
 					}
 				}
 
-				
-				
 			}
 		});
 		createOrDenyButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -397,7 +326,7 @@ public class AccountsPayableFrame extends JFrame {
 			rowData[8] = requisitionListObj.get(i).getSupplier_email();
 			rowData[9] = requisitionListObj.get(i).getAssociated_emp();
 			rowData[10] = requisitionListObj.get(i).getReq_status();
-//			rowData.toString();
+
 			model.addRow(rowData);
 		}
 		
@@ -441,10 +370,9 @@ public class AccountsPayableFrame extends JFrame {
 			rowData2[10] = PO_ListObj.get(i).getSupplier_tel();
 			rowData2[11] = PO_ListObj.get(i).getSupplier_email();
 			rowData2[12] = PO_ListObj.get(i).getAssociated_emp();
-//			rowData2.toString();
+
 			model2.addRow(rowData2);
 		}
-		
 		
 	}
 }

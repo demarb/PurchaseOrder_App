@@ -1,11 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Product implements Serializable{
 
@@ -15,24 +10,11 @@ public class Product implements Serializable{
 	private int item_max;
 	private int item_current;
 	private String item_reorder_status;
-	
-	private transient Connection dbConn;
-	
-	private transient String query;
-	private transient PreparedStatement stmt;
-	private transient ResultSet resultSet;
+
 	private static final long serialVersionUID = 643453457546675745L;
 	
 	
 	//Constructors 
-	/**
-	 * @param item_id
-	 * @param item_name
-	 * @param item_max
-	 * @param item_current
-	 * @param item_reorder_status
-	 */
-	
 	public Product() {
 		
 		this.item_id = 0;
@@ -83,15 +65,10 @@ public class Product implements Serializable{
 		this.item_reorder_status = item_reorder_status;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "Product [item_id=" + item_id + ", item_name=" + item_name + ", item_max=" + item_max + ", item_current="
 				+ item_current + ", item_reorder_status=" + item_reorder_status + "]";
 	}
-	
-	
 
-	
-	
 }

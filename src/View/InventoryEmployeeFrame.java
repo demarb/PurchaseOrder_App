@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,20 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextPane;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.DropMode;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -58,33 +48,11 @@ public class InventoryEmployeeFrame extends JFrame {
 	private Product productObj;
 	private ArrayList<Product> productListObj = new ArrayList<Product>();
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					InventoryEmployeeFrame frame = new InventoryEmployeeFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public InventoryEmployeeFrame(Client client, User userObj) {
 		this.client= client;
 		this.userObj = userObj;
 		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
 		this.getDeptLabel().setText("Role: "+ userObj.getRole());
-		
-		
-		
 		
 		System.out.println("Inventory Employee Frame Created");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,12 +80,10 @@ public class InventoryEmployeeFrame extends JFrame {
 		contentPane.add(bottomPanel);
 		bottomPanel.setLayout(null);
 		
-		
 		getUserLabel().setForeground(new Color(0, 0, 0));
 		getUserLabel().setBounds(39, 0, 376, 34);
 		getUserLabel().setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottomPanel.add(getUserLabel());
-		
 		
 		deptLabel.setForeground(new Color(0, 0, 0));
 		deptLabel.setBounds(449, 0, 386, 34);
@@ -138,74 +104,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		checkInventoryScrollPane = new JScrollPane();
 		checkInventoryPanel.add(checkInventoryScrollPane);
 		checkInventory();
-		
-//		productTable = new JTable();
-//		productTable.setEnabled(false);
-//		checkInventoryScrollPane.setViewportView(productTable);
-//		productTable.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//			},
-//			new String[] {
-//				"Item ID", "Item Name", "Item Max", "Item Current", "Item Reorder Status"
-//			}
-//		) {
-//			Class[] columnTypes = new Class[] {
-//				Integer.class, String.class, Integer.class, Integer.class, String.class
-//			};
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
+
 		productTable.getColumnModel().getColumn(1).setPreferredWidth(205);
 		productTable.getColumnModel().getColumn(4).setPreferredWidth(116);
 		productTable.setBackground(new Color(255, 255, 255));
@@ -250,9 +149,6 @@ public class InventoryEmployeeFrame extends JFrame {
 		JButton updateInventoryButton = new JButton("Update Inventory");
 		updateInventoryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				productObj = new Product();
-//				productObj.setitem_id(Integer.parseInt(itemIDTextField.getText()));
-//				productObj.setitem_current (Integer.parseInt(itemQuantitytextField.getText()));
 				client.setAction("Employee- Update Inventory");
 				client.sendAction("Employee- Update Inventory");
 				client.sendAction(itemIDTextField.getText());
@@ -441,12 +337,8 @@ public class InventoryEmployeeFrame extends JFrame {
 			rowData[2] = productListObj.get(i).getitem_max();
 			rowData[3] = productListObj.get(i).getitem_current();
 			rowData[4] = productListObj.get(i).getitem_reorder_status();
-//			rowData.toString();
 			model.addRow(rowData);
 		}
-		
-		
-		
-		
+
 	}
 }

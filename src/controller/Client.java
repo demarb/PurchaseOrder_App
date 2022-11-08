@@ -10,8 +10,6 @@ import model.Product;
 import model.PurchaseOrder;
 import model.Requisition;
 import model.User;
-import view.InventoryEmployeeFrame;
-import view.LoginFrame;
 
 public class Client {
 	
@@ -23,7 +21,6 @@ public class Client {
 	public Client() {
 		this.createConnection();
 		this.configureStreams();
-//		this.getLoginScreen();
 	}
 	
 	private void createConnection(){
@@ -56,7 +53,6 @@ public class Client {
 	}
 	
 	public void sendAction(String action) { 
-//		this.setAction(action);
 		try {
 			objOs.writeObject(action);
 		}catch (IOException e) {
@@ -65,14 +61,12 @@ public class Client {
 	}
 	
 	public void sendRequisition(Requisition requisitionObj) { 
-//		this.setAction(action);
 		try {
 			objOs.writeObject(requisitionObj);
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public void setAction(String action) {
 		this.action=  action;
@@ -81,44 +75,7 @@ public class Client {
 	public String getAction() {
 		return action;
 	}
-	
-	
 
-//	public void getLoginScreen(){
-//		LoginFrame loginFrame = new LoginFrame();
-//		loginFrame.setVisible(true);
-//		
-//		
-//	}
-	
-//	public User receiveResponse() {
-//		User userObj = new User();
-//		
-//		
-//		try {
-//			if (this.getAction().equalsIgnoreCase("Login")){
-//				boolean flag = (boolean) objIs.readObject();
-//				if(flag==true) {
-//					System.out.println("Login Correct");
-//					userObj = (User) objIs.readObject();
-//					
-//					
-////					new InventoryEmployeeFrame();
-//				}else {
-//					System.out.println("Login Incorrect");
-//					
-//					
-//				}
-//			}else {
-//				System.out.println("Login not detected");
-//			}
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return userObj;
-//	}
-	
 	public ObjectOutputStream getObjOs() {
 		return objOs;
 	}
@@ -145,18 +102,9 @@ public class Client {
 				if(flag==true) {
 					System.out.println("Login Correct");
 					userObj = (User) objIs.readObject();
-					
-					
-					
-//					new InventoryEmployeeFrame();
 				}else {
 					System.out.println("Login Incorrect");
-					
-					
-					
 				}
-//			}else {
-//				System.out.println("Login not detected");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -166,19 +114,14 @@ public class Client {
 	}	
 	
 	public ArrayList receiveProdArr() {
-		Product productObj = new Product();
 		ArrayList<Product> productListObj = new ArrayList<Product>();
 		
 		try {
 			System.out.println("test action: "+this.getAction());
 			if (this.getAction().equalsIgnoreCase("Employee- Check Inventory")){
 				
-				
 				productListObj = (ArrayList<Product>) objIs.readObject();
 					
-					
-					
-				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -188,7 +131,6 @@ public class Client {
 	}
 	
 	public ArrayList receiveReqArr() {
-		Requisition requisitionObj = new Requisition();
 		ArrayList<Requisition> requisitionListObj = new ArrayList<Requisition>();
 		
 		try {
@@ -206,7 +148,6 @@ public class Client {
 	}
 	
 	public ArrayList receivePOArr() {
-		PurchaseOrder purchaseOrderObj = new PurchaseOrder();
 		ArrayList<PurchaseOrder> PO_ListObj = new ArrayList<PurchaseOrder>();
 		
 		try {
@@ -231,16 +172,11 @@ public class Client {
 			if (this.getAction().equalsIgnoreCase("Employee- Update Inventory")){
 				confirmation = (Boolean) objIs.readObject();
 					
-
 			}else if (this.getAction().equalsIgnoreCase("Employee- Create Requisition")){
 				confirmation = (Boolean) objIs.readObject();
 				
-					
-
 			}else if (this.getAction().equalsIgnoreCase("Accounts- Create PO/Deny Requisition")){
 				confirmation = (Boolean) objIs.readObject();
-				
-					
 
 			}
 			
@@ -250,6 +186,5 @@ public class Client {
 		
 		return confirmation;
 	}
-	
 	
 }

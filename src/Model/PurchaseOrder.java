@@ -1,21 +1,12 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 
 public class PurchaseOrder implements Serializable{
 	//Attributes
 	private int po_id;
 	private int req_id;
 	private String approving_emp;
-//	private LocalDate currentDate; //LocalDate.now()
-//	private LocalDateTime currentTime; // LocalDateTime.now(); // currentTime.getHour()
 	private String dateTime;
 	
 	private int item_id;
@@ -29,9 +20,6 @@ public class PurchaseOrder implements Serializable{
 	private String associated_emp;
 	private String req_status;
 	
-	private transient String query;
-	private transient PreparedStatement stmt;
-	private transient ResultSet resSet;
 	private static final long serialVersionUID = 534754574466756435L;
 	
 	public PurchaseOrder() {
@@ -129,10 +117,6 @@ public class PurchaseOrder implements Serializable{
 	public void setReq_status(String req_status) {
 		this.req_status = req_status;
 	}
-
-	
-	
-	
 
 	public int getPo_id() {
 		return po_id;

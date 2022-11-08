@@ -19,7 +19,6 @@ public class Requisition  implements Serializable{
 	
 	private static final long serialVersionUID = 754667564345345745L;
 	
-	
 	public Requisition() {
 		this.req_id = 0;
 		this.item_id = 0;
@@ -146,9 +145,5 @@ public class Requisition  implements Serializable{
 				+ ", getSupplier_tel()=" + getSupplier_tel() + ", getSupplier_email()=" + getSupplier_email()
 				+ ", getAssociated_emp()=" + getAssociated_emp() + ", getReq_status()=" + getReq_status() + "]";
 	}
-	
 
-
-
-	
 }

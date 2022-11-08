@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,20 +9,10 @@ import controller.Client;
 
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextPane;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.DropMode;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,33 +27,8 @@ public class LoginFrame extends JFrame {
 	private JTextField userIdTextField;
 	
 	Client client = new Client();
-//	private int login_id;
-//	private String login_password;
-	
 	User user = new User();
 	
-	
-	
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LoginFrame frame = new LoginFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public LoginFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 789, 465);
@@ -131,7 +94,6 @@ public class LoginFrame extends JFrame {
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				user.setuser_id(Integer.parseInt(userIdTextField.getText()));
 				User userObj = new User();
 				user.setuser_id(userIdTextField.getText());
 				user.setPassword(userPasswordField.getText());
@@ -157,34 +119,12 @@ public class LoginFrame extends JFrame {
 					InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame(client, userObj);
 					inventoryEmpFrame.setVisible(true);
 					disposeFrame();
-					
-//					inventoryEmpFrame.getUserLabel().setText("User: "+ user.getf_name() + " " +user.getl_name());
-//					inventoryEmpFrame.getDeptLabel().setText("Role: "+ user.getRole());
-//					
-//					client.setAction("Employee- Check Inventory");
-//					client.sendAction("Employee- Check Inventory");
-//					client.receiveArray();
-//					
-//					inventoryEmpFrame.refreshButton.addActionListener(new ActionListener() {
-//						public void actionPerformed(ActionEvent e) {
-//							
-//						}
-//					});
-					
-					
-//				}else if(user.getRole().equalsIgnoreCase("supervisor")) {
-//					new InventorySupervisorFrame();
-//					
 				}else if(user.getRole().equalsIgnoreCase("accounts")) {
 					AccountsPayableFrame accountsPayFrame = new AccountsPayableFrame(client, userObj);
 					accountsPayFrame.setVisible(true);
 					disposeFrame();
 					
-				}//else if(user.getRole().equalsIgnoreCase("purchasing")) {
-//					System.out.println("Purchasing");
-//					
-//				}
-				
+				}
 				
 			}
 		});
@@ -198,9 +138,6 @@ public class LoginFrame extends JFrame {
 		companyNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		companyNameLabel.setBounds(180, 88, 379, 51);
 		contentPane.add(companyNameLabel);
-		
-			
-		
 	}
 	
 	public void disposeFrame() {

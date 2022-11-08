@@ -24,7 +24,6 @@ public class GeneratePdf {
 	public static String supplier_email = "";
 	public static String associated_emp = "";
 	
-	//Document Name
 	public static String document_name = "./generated-pdfs/test.pdf";
 
 	public static void createPDF() throws IOException {
@@ -45,7 +44,6 @@ public class GeneratePdf {
 		String titleText = "Purchase Order #: " + po_id;		
 		contentStream.showText(titleText);
 		contentStream.newLine();
-		
 		
 		contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 16);
 		contentStream.newLine();
@@ -101,8 +99,6 @@ public class GeneratePdf {
 		
 		contentStream.endText();
 		contentStream.close();
-		
-		
 		
 		document.save(document_name);
 		System.out.println("PDF Created");
