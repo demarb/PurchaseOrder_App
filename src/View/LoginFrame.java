@@ -8,6 +8,8 @@ import controller.Client;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -97,7 +99,7 @@ public class LoginFrame extends JFrame {
 				User userObj = new User();
 				user.setuser_id(userIdTextField.getText());
 				user.setPassword(userPasswordField.getText());
-				System.out.println("User Login Information received from user.");
+				System.out.println("[LOGIN] : Login Information received.");
 				
 				client.setAction("Login");
 				client.sendAction("Login");
@@ -106,26 +108,29 @@ public class LoginFrame extends JFrame {
 				
 				userObj = client.receiveUser();
 				
-				user.setuser_id(userObj.getuser_id());
-				user.setPassword(userObj.getPassword());
-				user.setf_name(userObj.getf_name());
-				user.setl_name(userObj.getl_name());
-				user.setRole(userObj.getRole());
-				
-				userLabel.setText("User: "+ user.getf_name() + " " +user.getl_name());
-				deptLabel.setText("Role: "+ user.getRole());
-				
-				if(user.getRole().equalsIgnoreCase("employee")) {
-					InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame(client, userObj);
-					inventoryEmpFrame.setVisible(true);
-					disposeFrame();
-				}else if(user.getRole().equalsIgnoreCase("accounts")) {
-					AccountsPayableFrame accountsPayFrame = new AccountsPayableFrame(client, userObj);
-					accountsPayFrame.setVisible(true);
-					disposeFrame();
+				if (client.isConnected()) {
+					user.setuser_id(userObj.getuser_id());
+					user.setPassword(userObj.getPassword());
+					user.setf_name(userObj.getf_name());
+					user.setl_name(userObj.getl_name());
+					user.setRole(userObj.getRole());
 					
+					userLabel.setText("User: "+ user.getf_name() + " " +user.getl_name());
+					deptLabel.setText("Role: "+ user.getRole());
+					
+					if(user.getRole().equalsIgnoreCase("employee")) {
+						InventoryEmployeeFrame inventoryEmpFrame = new InventoryEmployeeFrame(client, userObj);
+						inventoryEmpFrame.setVisible(true);
+						disposeFrame();
+					}else if(user.getRole().equalsIgnoreCase("accounts")) {
+						AccountsPayableFrame accountsPayFrame = new AccountsPayableFrame(client, userObj);
+						accountsPayFrame.setVisible(true);
+						disposeFrame();
+						
+					}
+				}else {
+					JOptionPane.showMessageDialog(loginButton, "Login Unsuccessful: ID/Password Incorrect.");
 				}
-				
 			}
 		});
 		loginButton.setFont(new Font("Tahoma", Font.PLAIN, 16));

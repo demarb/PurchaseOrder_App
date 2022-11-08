@@ -60,6 +60,7 @@ public class AccountsPayableFrame extends JFrame {
 		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
 		this.getDeptLabel().setText("Role: "+ userObj.getRole());
 		
+		System.out.println("[NEW VIEW] : Accounts Payable Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1263, 600);
 		contentPane = new JPanel();

@@ -17,7 +17,8 @@ public class Client {
 	private ObjectOutputStream objOs;
 	private ObjectInputStream objIs;
 	private String action = "";
-	
+	private boolean isConnected = false;
+
 	public Client() {
 		this.createConnection();
 		this.configureStreams();
@@ -91,19 +92,25 @@ public class Client {
 	public void setObjIs(ObjectInputStream objIs) {
 		this.objIs = objIs;
 	}
+	
+	public boolean isConnected() {
+		return isConnected;
+	}
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
 
 	public User receiveUser() {
 		User userObj = new User();
 		
 		try {
-			System.out.println("test action: "+this.getAction());
+			System.out.println("[RECEIVING RESPONSE FOR ACTION] : "+  this.getAction());
 			if (this.getAction().equalsIgnoreCase("Login")){
 				boolean flag = (boolean) objIs.readObject();
+				this.setConnected(flag);
 				if(flag==true) {
-					System.out.println("Login Correct");
 					userObj = (User) objIs.readObject();
-				}else {
-					System.out.println("Login Incorrect");
 				}
 			}
 		}catch(Exception e) {
@@ -117,7 +124,7 @@ public class Client {
 		ArrayList<Product> productListObj = new ArrayList<Product>();
 		
 		try {
-			System.out.println("test action: "+this.getAction());
+			System.out.println("[RECEIVING RESPONSE FOR ACTION] : "+  this.getAction());
 			if (this.getAction().equalsIgnoreCase("Employee- Check Inventory")){
 				
 				productListObj = (ArrayList<Product>) objIs.readObject();
@@ -134,7 +141,7 @@ public class Client {
 		ArrayList<Requisition> requisitionListObj = new ArrayList<Requisition>();
 		
 		try {
-			System.out.println("test action: "+this.getAction());
+			System.out.println("[RECEIVING RESPONSE FOR ACTION] : "+  this.getAction());
 			if (this.getAction().equalsIgnoreCase("Accounts- Check Requisition and PO")){
 				
 				requisitionListObj = (ArrayList<Requisition>) objIs.readObject();
@@ -151,7 +158,7 @@ public class Client {
 		ArrayList<PurchaseOrder> PO_ListObj = new ArrayList<PurchaseOrder>();
 		
 		try {
-			System.out.println("test action: "+this.getAction());
+			System.out.println("[RECEIVING RESPONSE FOR ACTION] : "+  this.getAction());
 			if (this.getAction().equalsIgnoreCase("Accounts- Check Requisition and PO")){
 				
 				PO_ListObj = (ArrayList<PurchaseOrder>) objIs.readObject();
@@ -168,7 +175,7 @@ public class Client {
 		boolean confirmation = false;
 		
 		try {
-			System.out.println("test action: "+this.getAction());
+			System.out.println("[RECEIVING RESPONSE FOR ACTION] : "+  this.getAction());
 			if (this.getAction().equalsIgnoreCase("Employee- Update Inventory")){
 				confirmation = (Boolean) objIs.readObject();
 					

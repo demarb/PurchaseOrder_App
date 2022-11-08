@@ -54,7 +54,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		this.getUserLabel().setText("User: "+ userObj.getf_name() + " " +userObj.getl_name());
 		this.getDeptLabel().setText("Role: "+ userObj.getRole());
 		
-		System.out.println("Inventory Employee Frame Created");
+		System.out.println("[NEW VIEW] : Inventory Employee Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 600);
 		contentPane = new JPanel();
@@ -307,6 +307,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		client.sendAction("Employee- Check Inventory");
 		
 		productListObj = client.receiveProdArr();
+		System.out.println("[PRODUCT LIST RECEIVED] : "+ productListObj.toString());
 		
 		productTable = new JTable();
 		productTable.setEnabled(false);
@@ -330,8 +331,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) productTable.getModel();
 		Object rowData[] = new Object[5];
 		
-		for (int i=0; i < productListObj.size(); i++) {
-			System.out.println(productListObj.toString()); 
+		for (int i=0; i < productListObj.size(); i++) { 
 			rowData[0] = productListObj.get(i).getitem_id();
 			rowData[1] = productListObj.get(i).getitem_name();
 			rowData[2] = productListObj.get(i).getitem_max();
