@@ -138,7 +138,7 @@ public class LoginFrame extends JFrame {
 		loginGrpPanel.add(loginButton);
 		loginButton.setBackground(new Color(0, 128, 128));
 		
-		JLabel companyNameLabel = new JLabel("Company Name");
+		JLabel companyNameLabel = new JLabel("876 Bookstore");
 		companyNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		companyNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		companyNameLabel.setBounds(180, 88, 379, 51);
