@@ -50,6 +50,8 @@ public class Client {
 			connectionSocket.close();
 		}catch (IOException ex) {
 			ex.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
