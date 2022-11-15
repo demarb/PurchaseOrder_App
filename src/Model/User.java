@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class User implements Serializable{
+	//Class Description: User model definition
 
 	//Attributes
 	private String user_id;
@@ -30,8 +31,6 @@ public class User implements Serializable{
 		this.l_name = l_name;
 		this.role = role;
 	}
-
-	
 
 	//Getters and setters
 	public String getuser_id() {

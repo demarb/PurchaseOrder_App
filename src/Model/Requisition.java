@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Requisition  implements Serializable{
+	//Class Description: Reequisition model definition
 
 	//Attributes
 	private int req_id;

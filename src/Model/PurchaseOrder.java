@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 
 public class PurchaseOrder implements Serializable{
+	//Class Description: PurchaseOrder model definition
+	
 	//Attributes
 	private int po_id;
 	private int req_id;

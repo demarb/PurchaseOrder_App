@@ -10,6 +10,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 public class GeneratePdf {
+	//Class Description: Generates a PDF for purchase Order
+	
 	public static String po_id = "";
 	public static String approving_emp = "";
 	public static String dateTime = "";

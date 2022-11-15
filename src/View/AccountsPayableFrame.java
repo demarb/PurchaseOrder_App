@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 
 
 public class AccountsPayableFrame extends JFrame {
+	//Class Description: Accounts Payable View
 
 	private JPanel contentPane;
 	private JTextField txtReqId;
@@ -138,6 +139,7 @@ public class AccountsPayableFrame extends JFrame {
 		genPOtextField.setColumns(25);
 		pdfFormPanel.add(genPOtextField);
 		
+		//Button to generrate PDF for Purchase Order
 		JButton generatePdfBtn = new JButton("Generate PDF for Purchase Order");
 		generatePdfBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,6 +211,7 @@ public class AccountsPayableFrame extends JFrame {
 		rdbtnDeny.setBounds(333, 481, 91, 35);
 		contentPane.add(rdbtnDeny);
 		
+		//Button to deny or approve requisition and subsequently create PO id necessary
 		JButton createOrDenyButton = new JButton("Create PO/Deny");
 		createOrDenyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -258,6 +261,7 @@ public class AccountsPayableFrame extends JFrame {
 		createOrDenyButton.setBounds(434, 481, 180, 35);
 		contentPane.add(createOrDenyButton);
 		
+		//Button to refresh Purchase Order and requisitions
 		JButton refreshButton = new JButton("Refresh Requisition/PO");
 		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,6 +290,7 @@ public class AccountsPayableFrame extends JFrame {
 		this.deptLabel = deptLabel;
 	}
 	
+	//This methods updates the table in view for PO and requisitions
 	public void checkReq_PO() {
 		client.setAction("Accounts- Check Requisition and PO");
 		client.sendAction("Accounts- Check Requisition and PO");

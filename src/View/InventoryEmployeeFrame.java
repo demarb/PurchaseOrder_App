@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class InventoryEmployeeFrame extends JFrame {
+	//Class Description: Inventory Employee View
 
 	private JPanel contentPane;
 	private JTable productTable;
@@ -146,6 +147,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		formPanel.add(itemQuantitytextField);
 		itemQuantitytextField.setColumns(10);
 		
+		//Button to update inventory for employee screen
 		JButton updateInventoryButton = new JButton("Update Inventory");
 		updateInventoryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -302,6 +304,7 @@ public class InventoryEmployeeFrame extends JFrame {
 		this.deptLabel = deptLabel;
 	}
 	
+	//Method to update table view for inventory
 	public void checkInventory() {
 		client.setAction("Employee- Check Inventory");
 		client.sendAction("Employee- Check Inventory");

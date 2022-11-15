@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Product implements Serializable{
+	//Class Description: Product model definition
 
 	//Attribute
 	private int item_id;

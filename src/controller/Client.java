@@ -12,6 +12,8 @@ import model.Requisition;
 import model.User;
 
 public class Client {
+	//Class Description: Client definition. Handles socket connection between server and
+	//facilitates the transmission of objects over the connection
 	
 	private Socket connectionSocket;
 	private ObjectOutputStream objOs;
@@ -24,6 +26,7 @@ public class Client {
 		this.configureStreams();
 	}
 	
+	//Connect to server socket
 	private void createConnection(){
 		try {
 			//Create a socket to connect to the server
@@ -34,6 +37,7 @@ public class Client {
 		}
 	}
 	
+	//Configure object streams for data transmission
 	private void configureStreams() {
 		try {
 			objIs = new ObjectInputStream(connectionSocket.getInputStream());

@@ -23,6 +23,7 @@ import model.User;
 
 
 public class LoginFrame extends JFrame {
+	//Class Description: User Login View
 
 	private JPanel contentPane;
 	private JTextField userPasswordField; //formally JPasswordField
@@ -93,6 +94,7 @@ public class LoginFrame extends JFrame {
 		userPasswordField.setToolTipText("Enter Password");
 		userPasswordField.setColumns(20);
 		
+		//Login Button to process user credentials
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
